@@ -25,18 +25,20 @@
     </tr>
     </thead>
     <tbody>
-        {% for movie in movies | sort(reverse = true,attribute="rating")%}
-        <tr class="{{ loop.cycle('odd','even') }}">
+        {# TODO: Use filters to sort movies, truncate synopsis and show the url. #}
+        {# TODO: Add classes 'odd' and 'even' to the rows #}
+        {% for movie in movies %}
+        <tr class="even">
             <td>{{ loop.index }}</td>
             <td> {{ movie.title }} </td>
             <td> {{ movie.year }} </td>
             <td> {{ movie.rating }} </td>
-            <td> {{ movie.synopsis | truncate(80) }} <br>
-                    {{ movie.url |urlize}}
+            <td> {{ movie.synopsis  }} <br>
+                    {{ movie.url }}
             </td>
         </tr>
         {% endfor %}
-        {# TODO: Display movies here #}
+        
     </tbody>
 </table>
 

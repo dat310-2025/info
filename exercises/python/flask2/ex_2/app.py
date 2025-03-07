@@ -17,6 +17,7 @@ def is_prime(n):
 
 @app.route("/")
 def index():
+    # use the is_prime function to compute an array that you pass in to the template.
     return render_template("primes.html")
 
 
