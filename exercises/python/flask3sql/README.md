@@ -8,7 +8,7 @@
 
 ## Exercise #0: Set up SQLite db
 
-* Create a python script that initializes a SQLite database and create a table `movies`.
+* Create a python script that initializes a SQLite database and creates a table `movies`.
 * The table should have the following columns:
     - `imdb_id TEXT` we'll use the IMDB movie IDs as a unique identifier and PRIMARY KEY
     - `title TEXT`
@@ -25,7 +25,8 @@ $ sqlite3 ./database.db < movies.sql
 
 ## Exercise #1: Listing movies
 
-Update [Exercise 4 from the last lecture on flask](../../../solutions/python/flask2/ex_4) such that movies are loaded from the MySQL database.
+Folder [ex_1](ex_1) contains the solution for Exercise 4 from the last lecture.
+Update update the site, such that movies are loaded from a SQLites database.
 
 Specifically,
 
