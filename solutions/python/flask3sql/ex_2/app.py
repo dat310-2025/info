@@ -2,7 +2,7 @@
 Exercise #2: Movie details
 """
 
-from flask import Flask, render_template, g, request
+from flask import Flask, render_template, g, request, abort
 import sqlite3
 
 app = Flask(__name__)
@@ -44,7 +44,7 @@ def index():
             })
         return render_template("movies.html", movies=movies)
     except sqlite3.Error as err:
-        return render_template("error.html", msg="Error querying data")
+        return render_template("error.html", msg="Error querying data"), 500
     finally:
         cur.close()
 
@@ -56,10 +56,11 @@ def movie(imdb_id):
     try:
         sql = "SELECT title, year, rating, synopsis FROM movies WHERE imdb_id=?"
         cur.execute(sql, (imdb_id,))
-        (title, year, rating, synopsis) = cur.fetchone()
-        return render_template("movie.html", imdb_id=imdb_id, title=title, year=year, rating=rating, synopsis=synopsis)
+        for (title, year, rating, synopsis) in cur:
+            return render_template("movie.html", imdb_id=imdb_id, title=title, year=year, rating=rating, synopsis=synopsis)
+        return abort(404)
     except sqlite3.Error as err:
-        return render_template("error.html", msg="Error querying data")
+        return render_template("error.html", msg="Error querying data"), 500
     finally:
         cur.close()
 
