@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <script src="/static/home.js"></script>
+    <script src="/static/about.js"></script>
+    <script src="/static/contact.js"></script>
+
+    <style>
+      #error {
+        display: none;
+        background-color: lightpink;
+        border: 2px solid lightcoral;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <button onclick="go('/')">Home</button>
+      <button onclick="go('/about')">About</button>
+      <button onclick="go('/contact')">Contact</button>
+      <button onclick="history.go(-1);">Back</button>
+      <a href="/" onclick="event.preventDefault();go('/')">Home</a> 
+      <a href="/about" onclick="event.preventDefault();go('/about')">About</a> 
+      <a href="/contact" onclick="event.preventDefault();go('/contact')">Contact</a>
+    </nav>
+    <div id="error">
+      <span id="errortext"></span>
+      <button onclick="hideerror()">ok</button>
+    </div>
+    <div id="app"></div>
+
+    <div>You have changed the page <span id="routingtimes">0</span> times</div>
+    <script>
+      let routingcount = 0;
+      const components = [homecomponent, aboutcomponent,contactcomponent];
+      routes = {}
+      for (let i = 0; i< components.length; i++) {
+        let c = components[i];
+        if (c.route && c.template){
+          routes[c.route]= c;
+        }
+      }
+      
+
+      function go(path){
+        //history.go(path);
+        history.pushState({routingcount: routingcount},"", path);
+        render(path)
+      }
+
+      function render (path){
+        console.log(path)
+        c = routes[path];
+        if (!c || ! c.template){
+          showerror(`Path ${path} not available.`)
+          go("/")
+        }
+        document.querySelector("#app").innerHTML = c.template;
+        if (c.start){
+          c.start()
+        }
+        routingcount++
+        document.getElementById("routingtimes").innerText = routingcount;
+      };
+
+      function showerror(error){
+        let errordiv = document.getElementById("error");
+        let errortext = document.getElementById("errortext");
+        errortext.innerText = error;
+        errordiv.style.display="block";
+      }
+
+      function hideerror(){
+        document.getElementById("error").style.display="none";
+      }
+
+      window.addEventListener("popstate", function(event){
+        if (event.state && event.state.routingcount){
+          routingcount = event.state.routingcount;
+        }
+        render(window.location.pathname);
+      })
+
+      render(window.location.pathname);
+      
+    </script>
+  </body>
+</html>

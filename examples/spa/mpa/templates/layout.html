@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <nav>
+        <a href="/">Home</a> 
+        <a href="/about">About</a> 
+        <a href="/contact">Contact</a>
+    </nav>
+    <div id="app">
+        {% block content %}{% endblock %}
+    </div>
+    <div>You have changed the page <span id="routingtimes">{{ routingtimes }}</span> times</div>
+    <div>Here is a number you can increment in Javascript: 
+        <span id="number">0</span>
+        <button onclick="add()">+1</button>
+    </div>
+    <script>
+        let number = 0;
+        function add(){
+            number++;
+            let numberspan= document.getElementById("number");
+            numberspan.textContent = number;
+        }
+    </script>
+</body>
+</html>

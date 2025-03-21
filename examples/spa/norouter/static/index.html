@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <script src="/static/home.js"></script>
+    <script src="/static/about.js"></script>
+  </head>
+  <body>
+    <nav>
+      <button onclick="render('/')">Home</button>
+      <button onclick="render('/about')">About</button>
+      <button onclick="render('/contact')">Contact</button>
+    </nav>
+    <div id="app"></div>
+
+    <div>You have changed the page <span id="routingtimes">0</span> times</div>
+    <script>
+      let routingcount = 0;
+      
+      const components = [homecomponent, aboutcomponent];
+      
+      routes = {}
+      for (let i = 0; i< components.length; i++) {
+        let c = components[i];
+        if (c.route && c.template){
+          routes[c.route]= c;
+        }
+      }
+      const render = function(path){
+        console.log(path)
+        c = routes[path.replace("#", "")];
+        if (!c || ! c.template){
+          c = { template: `<h1>404</h1>`}
+        }
+        document.querySelector("#app").innerHTML = c.template;
+        
+        if (c.start){
+          c.start()
+        }
+        routingcount++
+        document.getElementById("routingtimes").innerText = routingcount
+      };
+
+      render("/");
+      
+    </script>
+  </body>
+</html>

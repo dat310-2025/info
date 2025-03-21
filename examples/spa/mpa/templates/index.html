@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h1>Home</h1>
+    {% if user is defined %}
+    <p id="welcome">Welcome {{ user.name}} !</p>
+    <div>Do you want to order {{ user.favorite }}</div>
+    {% else %}
+    <p id="welcome">Welcome Home!</p>
+    {% endif %}
+{% endblock %}
