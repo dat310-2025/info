@@ -18,15 +18,12 @@ def index():
 
 @app.route("/save", methods=["POST"])
 def save():
-    name = None
-    email = None
-    if "name" in request.form:
-        name = request.form["name"]
-    else:
+    name = request.form.get("name","")
+    email = request.form.get("email","")
+
+    if not name:
         flash("Name is missing", "error")
-    if "email" in request.form:
-        email = request.form["email"]
-    else:
+    if not email:
         flash("Email is missing", "error")
 
     if name and email:

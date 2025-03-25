@@ -15,7 +15,7 @@ Make a form that asks for the user's name and email address, and then remembers 
   * Remember the user's details for 60 days.
   * The user should also be able to "be forgotten" by clicking on a link.
   * Upon successful operations (remembering or forgetting), show a success message.
-  * Use [message flashing](http://flask.pocoo.org/docs/0.12/patterns/flashing/#message-flashing-pattern) with `success` and `error` categories for displaying these messages.  The messages should be displayed inside the `<main>` element, above the content part. The style definitions are already created for the `success` and `error` classes.
+  * Use [message flashing](https://flask.palletsprojects.com/en/stable/patterns/flashing/#flashing-with-categories) with `success` and `error` categories for displaying these messages.  The messages should be displayed inside the `<main>` element, above the content part. The style definitions are already created for the `success` and `error` classes.
 
 The [skeleton of the app](ex_1/) is provided, which already includes the form that asks for the name and email and methods for the requests (to be completed).
 
@@ -37,7 +37,7 @@ The task is to manage the contents of a shopping cart using sessions.
   * Remove a given product that is in the shopping cart.
     - Removing products is done via a GET request (`/remove?product_id=xxx`).
     - If the product to be removed is not in the shopping cart, then return a `400` HTTP error. Otherwise show a success message.
-  * Create a custom error page for error `400`.
+  * Create a custom error page for error `400`. See here for a reminder: [Custom error pages](https://flask.palletsprojects.com/en/stable/errorhandling/#custom-error-pages)
 
 The [skeleton of the app](ex_2/) is provided, which already includes the HTML parts.  Complete the missing parts of `app.py` and make the necessary changes under `templates/`.
 
