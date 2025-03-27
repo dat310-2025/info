@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Import Vue -->
+    <!-- development version, includes helpful console warnings -->
+    <script src="https://unpkg.com/vue@3.0.5/dist/vue.global.js"></script>
+    
+    <script src="static/src/songListItem.js"></script>
+    <script src="static/src/songForm.js"></script>
+    <script src="static/app.js" defer></script>
+
+    <link rel="stylesheet" href="static/style.css">
+
+    <title>Vue  playlist</title>
+</head>
+<body>
+<div id="app">
+<song-form
+    v-on:new-song="addSong($event)"
+></song-form>
+
+
+<ul id="playlist">
+    <li  v-if="loading" >
+        <img src='/static/images/loading.gif'/>
+    </li>
+    <song-list-item 
+        v-for="(song, index) in playlist"
+        v-bind:song="song"
+        v-bind:key="index"
+        v-on:delete="remove(song)"
+        v-on:retry="retry(song)"
+    ></song-list-item>
+</ul>
+
+<div class="error"
+    v-if="error"
+>{{error}} 
+    <img 
+        src="/static/images/delete.png" 
+        alt="delete" 
+        class="delete"
+        v-on:click="this.error = null">
+</div>
+
+</div>
+<script></script>
+</body>
+</html>

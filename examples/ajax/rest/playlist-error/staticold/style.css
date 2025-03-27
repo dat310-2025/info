@@ -1,0 +1,62 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+ul#playlist {
+    border: 1px solid #a9a9a9;
+    border-radius: 5px;
+    margin-top: 10px;
+    padding: 0px;
+    list-style-type: none;
+}
+
+ul#playlist li {
+    border-bottom: 1px solid #a9a9a9;
+    padding: 10px;
+    background-image: linear-gradient(#f9f9f9, #e3e3e3);
+}
+
+ul#playlist li:last-child {
+    border-bottom: none;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+ul#playlist li:first-child {
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+/* added for 7b */
+ul#playlist li {
+    position: relative;
+}
+img.delete, img.saving {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    width: 32px;
+}
+img.saving {
+    width: 16px;
+    padding: 8px;
+}
+
+.retry {
+    position: absolute;
+    right: 32px;
+    top: 5px;
+}
+
+.error {
+    position: fixed;
+    bottom:1em;
+    right: 0.5em;
+    color:lightcoral;
+    border: 1px solid red;
+    padding: 0.5em;
+    padding-right: 32px;
+}
+
+.error .delete {
+    top: 0px;
+}

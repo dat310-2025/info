@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="static/src/songListItem.js" defer></script>
+    <script src="static/app.js" defer></script>
+
+    <link rel="stylesheet" href="static/style.css">
+
+    <title>Vanilla JS Playlist</title>
+</head>
+<body>
+<div id="app">
+    <div id="song-form-container">
+        <form id="songForm">
+            <input type="text" id="songTextInput" size="40" placeholder="Song name">
+            <input type="text" id="bandTextInput" size="40" placeholder="Band name">
+            <input type="button" id="addButton" value="Add Song" onclick="handleForm()">
+        </form>
+    </div>
+    <ul id="playlist">
+        <li id="loading" style="display: none;">
+            <img src='/static/images/loading.gif'/>
+        </li>
+        <!-- Songs will be dynamically added here -->
+    </ul>
+    <div class="error" id="errorbox">
+        <span id="errormsg"></span>
+    <img 
+        src="/static/images/delete.png" 
+        alt="delete" 
+        class="delete"
+        onclick="this.parentElement.style.display = 'none'">
+</div>
+</div>
+</body>
+</html>

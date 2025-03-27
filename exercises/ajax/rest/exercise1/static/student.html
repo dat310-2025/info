@@ -17,22 +17,20 @@
             padding: 3px;    
         }
     </style>
-    <script src="https://unpkg.com/vue@3.0.5/dist/vue.global.js"></script>
 </head>
 <body>
 
 <div id="app">
 
-<form action="#">  <!-- form action does not matter for now as we don't actually submit the form -->
+<form id="studentForm" action="#">
     <label for="name">Name</label>
-    <input type="text" id="name" v-model="name">
+    <input type="text" id="name">
     <br>
     <label for="student_no">Student Number</label>
-    <input v-if="editing" type="text" id="student_no" v-bind:value="number" readonly>
+    <input type="text" id="student_no" readonly>
     <br>
-    <button v-on:click="editStudent" v-if="editing">Edit student</button>
-    <button v-on:click="addStudent" v-else>Add student</button>
-    
+    <button id="editButton" style="display: none;" onclick="saveStudentEdit(event)">Edit student</button>
+    <button id="addButton" onclick="addStudent(event)">Add student</button>
 </form>
 
 <table id="student_table">
@@ -43,77 +41,120 @@
             <th></th>
         </tr>
     </thead>
-    <tbody>
-        <tr v-for="student, index in students">
-            <td>{{ student.student_no }}</td>
-            <td  v-on:click="edit(student)">{{ student.name }} </td> 
-            <td v-on:click="remove(index)"> X</td>
-        </tr>
+    <tbody id="studentTableBody">
+        <!-- Rows will be dynamically added here -->
     </tbody>
 </table>
 
 </div>
 
 <script>
+    var state = {
+        students: [],
+        editing: false,
+        currentStudentIndex: null,
+    };
 
-let app = Vue.createApp({
-    data: function(){
-        return {
-            students: [],
-            editing: false,
-            name: "",
-            number: "",
-        }
-    },
-    created: async function(){
-        let request = await fetch("/students");
-        if (request.status == 200){
-            let result = await request.json();
-            this.students = result;
-        }
-    },
-    methods: {
-        remove(index){
-            let student = this.students[index];
-            this.students.splice(index,1);
-            this.editing = false;
-        },
-        edit(student){
-            this.name = student.name;
-            this.number = student.student_no;
-            this.editing = true;
-        },
-        editStudent: function(){
-            let student = this.students.find(s=>s.student_no == this.number);
-            if (student){
-                console.log("updating");
-                student.name = this.name;
+    var nameInput = document.getElementById("name");
+    var numberInput = document.getElementById("student_no");
+    var editButton = document.getElementById("editButton");
+    var addButton = document.getElementById("addButton");
+    var studentTableBody = document.getElementById("studentTableBody");
+
+    async function fetchStudents() {
+        try {
+            let response = await fetch("/students");
+            if (response.status === 200) {
+                state.students = await response.json();
+                renderTable();
             }
-            this.editing = false;
-        },
-        addStudent: async function(){
-            if (this.name){
-                //adding student without number
-                let new_student = {student_no: null, name: this.name};
-                this.students.push(new_student);
-                let request = await fetch("/addstudent", {
+        } catch (error) {
+            console.error("Error fetching students:", error);
+        }
+    }
+
+    function renderTable() {
+        studentTableBody.innerHTML = "";
+        state.students.forEach(function (student, index) {
+            var row = document.createElement("tr");
+
+            var studentNoCell = document.createElement("td");
+            studentNoCell.textContent = student.student_no;
+            row.appendChild(studentNoCell);
+
+            var nameCell = document.createElement("td");
+            nameCell.textContent = student.name;
+            nameCell.onclick= function(){editStudent(index)};
+            row.appendChild(nameCell);
+
+            var removeCell = document.createElement("td");
+            removeCell.textContent = "X";
+            removeCell.onclick= function(){removeStudent(index)}
+            row.appendChild(removeCell);
+
+            studentTableBody.appendChild(row);
+        });
+    }
+
+    function resetForm() {
+        nameInput.value = "";
+        numberInput.value = "";
+        state.editing = false;
+        state.currentStudentIndex = null;
+        editButton.style.display = "none";
+        addButton.style.display = "inline";
+    }
+
+    function editStudent(index) {
+        let student = state.students[index];
+        nameInput.value = student.name;
+        numberInput.value = student.student_no;
+        state.editing = true;
+        state.currentStudentIndex = index;
+        editButton.style.display = "inline";
+        addButton.style.display = "none";
+    }
+
+    function removeStudent(index) {
+        state.students.splice(index, 1);
+        resetForm();
+        renderTable();
+    }
+
+    async function saveStudentEdit(event) {
+        event.preventDefault();
+        if (state.editing && state.currentStudentIndex !== null) {
+            let student = state.students[state.currentStudentIndex];
+            student.name = nameInput.value;
+            resetForm();
+            renderTable();
+        }
+    }
+
+    async function addStudent(event) {
+        event.preventDefault();
+        if (nameInput.value) {
+            let newStudent = { student_no: null, name: nameInput.value };
+            state.students.push(newStudent);
+            try {
+                let response = await fetch("/addstudent", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify(new_student)
+                    body: JSON.stringify(newStudent),
                 });
-                if (request.status == 200){
-                    let result = await request.json();
-                    console.log(result);
-                    this.students = result;
+                if (response.status === 200) {
+                    state.students = await response.json();
+                    renderTable();
                 }
+            } catch (error) {
+                console.error("Error adding student:", error);
             }
         }
     }
-});
-let vm = app.mount("#app");
 
+    fetchStudents();
 </script>
 </body>
 </html>
