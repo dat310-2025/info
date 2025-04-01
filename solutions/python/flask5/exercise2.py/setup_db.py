@@ -7,8 +7,8 @@ def create_user_table(conn):
     try:
         sql = ("CREATE TABLE users ("
                "userid INTEGER, "
-               "username VARCHAR(20) NOT NULL, "
-               "passwordhash VARCHAR(120) NOT NULL, "
+               "username TEXT NOT NULL, "
+               "passwordhash TEXT NOT NULL, "
                "PRIMARY KEY(userid) "
                "UNIQUE(username))")
         cur.execute(sql)

@@ -46,6 +46,13 @@ def logout():
 def index():
     return render_template("index.html", username=session.get("username", None))
 
+@app.route("/secret")
+def secret():
+    username=session.get("username", None)
+    if not username:
+        flash("Must be logged in to access secret")
+        return redirect(url_for("login"))
+    return render_template("secret.html", username=session.get("username", None))
 
 if __name__ == "__main__":
     app.run()
