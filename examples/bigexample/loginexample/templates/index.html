@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Login</title>
+        <link rel="stylesheet" href="/static/style.css">
+        
+    </head>
+    <body>
+        <div id="login-wrapper" class="wrapper">
+            <div id="login">
+                {% if not username %}
+                <form action="/login" method="POST">
+                    <table>
+                        <tr>
+                            <td>Username:</td>
+                            <td><input type="text" name="username" id="username" size="15" /></td>
+                        </tr>
+                        <tr>
+                            <td>Password:</td>
+                            <td><input type="password" name="password" id="password" size="15" /></td>
+                        </tr>
+                    </table>
+                    <input type="submit" name="submit" value="Login" />
+                </form>
+                {% else %}
+                <form action="/logout" id="logoutform">
+                    Logged inn as: <span id="loggedinname">{{ username }}</span>
+                    <input type="submit" name="submit" value="Logout" />
+                </form>
+                {% endif %}
+            </div>
+        </div>
+
+    </body>
+</html>
+

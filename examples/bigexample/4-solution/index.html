@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Address book</title>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="style.css">
+        <script src="addressbook.js"></script>
+        <script src="data.js"></script>
+    </head>
+    <body onload="displayEntries()">
+        <div id="wrapper">
+            <div id="control">
+                <form action="">
+                    <input type="text" name="search" id="search" size="15" placeholder="Search" onkeyup="displayEntries()" />
+                    <i class="fa fa-sort-amount-desc"></i>
+                    <select name="sort" id="sort" onchange="sortContacts();displayEntries();">
+                        <option value="name">Name</option>
+                        <option value="tel">Telephone</option>
+                        <option value="email">Email</option>
+                    </select>
+                    <div id="buttons">
+                        <a href="#" onclick="show('addentry');"><i class="fa fa-plus fa-border"></i></a>
+                        <a href="#" onclick="show('settings');"><i class="fa fa-cog fa-border"></i></a>
+                    </div>
+                </form>
+            </div>
+
+			<!-- Add entry panel -->
+            <div id="addentry" style="display:none;">
+                <h2>Add entry</h2>
+                <div class="close"><a href="#" onclick="hide('addentry');"><i class="fa fa-remove"></i></a></div>
+                <form action="javascript:void(0);" onsubmit="addEntry();">
+                    <table>
+                        <tr>
+                            <td>Name:</td>
+                            <td><input type="text" name="add_name" id="add_name" size="15" /></td>
+                        </tr>
+                        <tr>
+                            <td>Tel:</td>
+                            <td><input type="text" name="add_tel" id="add_tel" size="15" /></td>
+                        </tr>
+                        <tr>
+                            <td>Email:</td>
+                            <td><input type="text" name="add_email" id="add_email" size="15" /></td>
+                        </tr>
+                    </table>
+                    <input type="submit" name="submit" value="Add" />
+                </form>
+            </div>
+
+			<!-- Modify entry panel -->
+            <div id="modentry" style="display:none;">
+                <h2>Modify entry</h2>
+                <div class="close"><a href="#" onclick="hide('modentry');"><i class="fa fa-remove"></i></a></div>
+                <form action="javascript:void(0);" onsubmit="saveChanges();">
+                    <table>
+                        <tr>
+                            <td>Name:</td>
+                            <td><input type="text" name="mod_name" id="mod_name" size="15" /></td>
+                        </tr>
+                        <tr>
+                            <td>Tel:</td>
+                            <td><input type="text" name="mod_tel" id="mod_tel" size="15" /></td>
+                        </tr>
+                        <tr>
+                            <td>Email:</td>
+                            <td><input type="text" name="mod_email" id="mod_email" size="15" /></td>
+                        </tr>
+                    </table>
+                    <input type="hidden" name="mod_idx" id="mod_idx" value="" />
+                    <input type="submit" name="submit" value="Modify" />
+                </form>
+            </div>
+
+
+			<!-- Settings panel -->
+            <div id="settings" style="display:none;">
+                <h2>Settings</h2>
+                <div class="close"><a href="#" onclick="hide('settings');"><i class="fa fa-remove"></i></a></div>
+                <form action="#" onsubmit="changeSettings();return false;">
+                    <table>
+                        <tr>
+                            <td>Font:</td>
+                            <td>
+                            	<select name="font" id="font">
+                            		<option value="Verdana">Verdana</option>
+                            		<option value="Times New Roman">Times New Roman</option>
+                            		<option value="Lucida Console">Lucida Console</option>
+                            	</select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Size:</td>
+                            <td>
+                            	<input type="radio" name="fontsize" value="0.6em">Small
+                            	<input type="radio" name="fontsize" value="0.8em" checked>Normal
+                            	<input type="radio" name="fontsize" value="1em">Large
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Color:</td>
+                            <td>
+                            	<select name="color" id="color">
+                            		<option value="#FFFFFF">white</option>
+                            		<option value="#FFFFCC">yellow</option>
+                            		<option value="#CCFFCC">green</option>
+                            		<option value="#CCFFFF">blue</option>
+                            	</select>
+                            </td>
+                        </tr>
+                    </table>
+                    <input type="submit" name="submit" value="Change" />
+                </form>
+            </div>
+            
+            <!-- Listing contacts -->
+            <div id="contacts"></div>
+        </div>
+
+    </body>
+</html>
+
