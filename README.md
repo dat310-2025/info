@@ -52,7 +52,7 @@ This is a tentative schedule and will be subject to changes.
 |   13 |     Thu | RESTfull APIs           | Leander  | [Slides](slides/12-1-Web-programming-Flask-APIs.pdf) [examples](examples/ajax/rest/) [exercises](exercises/ajax/rest/) [solutions](solutions/ajax/rest/)                                                    |
 |   14 |     Tue | Login                   | Leander  | [Slides](slides/13-1-Web-programming-Server-Login.pdf) [examples](examples/python/flask5) [exercises](exercises/python/flask5) [solutions](solutions/python/flask5)                                         |
 |   14 |     Tue | Accessibility & Example | Leander  | [Slides](slides/13-2-WebProgramming-Acc-and-example.pdf) [examples](examples/bigexample) |
-|   15 |     Tue | Exam project | Leander |  |
+|   15 |     Tue | Git collaboration & Exam project | Leander |  |
 
 **There will be no lectures the remaining weeks. Instead, every group should attend an individual meeting with Leander.**
 
