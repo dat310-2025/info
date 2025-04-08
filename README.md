@@ -2,7 +2,7 @@
 This repository is for the 2025 spring edition of the DAT310 Web programming course at the University of Stavanger. 
 
   - **Intro**: 
-  - [Exam project](exam/examinfo.md)
+  - [Exam project](exam/examproject.md)
   - Introduction [slides](slides/WebProgramming-Course_info.pdf)
   - Introduction [video](https://youtu.be/Vnt1MH8uEc4)
   - [how to hand in assignments on GitHub](quickfeed.md)
@@ -52,7 +52,7 @@ This is a tentative schedule and will be subject to changes.
 |   13 |     Thu | RESTfull APIs           | Leander  | [Slides](slides/12-1-Web-programming-Flask-APIs.pdf) [examples](examples/ajax/rest/) [exercises](exercises/ajax/rest/) [solutions](solutions/ajax/rest/)                                                    |
 |   14 |     Tue | Login                   | Leander  | [Slides](slides/13-1-Web-programming-Server-Login.pdf) [examples](examples/python/flask5) [exercises](exercises/python/flask5) [solutions](solutions/python/flask5)                                         |
 |   14 |     Tue | Accessibility & Example | Leander  | [Slides](slides/13-2-WebProgramming-Acc-and-example.pdf) [examples](examples/bigexample) |
-|   15 |     Tue | Git collaboration & Exam project | Leander |  |
+|   15 |     Tue | Git collaboration & Exam project | Leander | [Slides](slides/14-1-Web-programming-Git-advanced.pdf) [Exam project](exam/examproject.md) |
 
 **There will be no lectures the remaining weeks. Instead, every group should attend an individual meeting with Leander.**
 
